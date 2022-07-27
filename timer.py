@@ -69,7 +69,7 @@ class Pomodoro:
         relogio_id = self.tabs.index(self.tabs.select()) + 1
 
         if relogio_id == 1:
-            full_segundos = 60 * 25
+            full_segundos = 60 * 25            
             while full_segundos > 0 and not self.parado:
                 minutos, segundos = divmod(full_segundos, 60)
                 self.tempor_pomodoro_funcao.config(text =f'{minutos:02d}:{segundos:02d}')
@@ -86,7 +86,7 @@ class Pomodoro:
                 self.inicia_temporizador()
         elif relogio_id == 2:
             full_segundos = 60 * 5
-            while segundos > 0 and not self.parado:
+            while full_segundos > 0 and not self.parado:
                 minutos, segundos = divmod(full_segundos, 60)
                 self.pausa_curta_funcao.config(text =f'{minutos:02d}:{segundos:02d}')
                 self.root.update()
@@ -97,7 +97,7 @@ class Pomodoro:
                 self.inicia_temporizador()
         elif relogio_id == 3:
             full_segundos = 60 * 15
-            while segundos > 0 and not self.parado:
+            while full_segundos > 0 and not self.parado:
                 minutos, segundos = divmod(full_segundos, 60)
                 self.pausa_longa_funcao.config(text =f'{minutos:02d}:{segundos:02d}')
                 self.root.update()
@@ -112,7 +112,14 @@ class Pomodoro:
 
 
     def reset_relogio(self):
-        pass
+        self.parado = True
+        self.pulado = False
+        self.pomodoros = 0
+
+        self.tempor_pomodoro_funcao.config(text = '25:00')
+        self.pausa_curta_funcao.config(text = '05:00')
+        self.pausa_longa_funcao.config(text = '15:00')
+        #self.contador_pomodoro.config(text = 'Pomodoros: 0')
 
     def pula_relogio(self):
         pass
