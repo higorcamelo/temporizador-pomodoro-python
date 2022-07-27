@@ -55,13 +55,16 @@ class Pomodoro:
         self.pomodoros = 0
         self.pulado = False
         self.parado = False
+        self.executando = False
 
 
         self.root.mainloop()
 
     def inicia_temporizador_thread(self):
-        thread = threading.Thread(target = self.inicia_temporizador)
-        thread.start()
+        if not executando:
+            thread = threading.Thread(target = self.inicia_temporizador)
+            thread.start()
+            self.executando = True
 
     def inicia_temporizador(self):
         self.parado = False
@@ -72,7 +75,7 @@ class Pomodoro:
             full_segundos = 60 * 25            
             while full_segundos > 0 and not self.parado:
                 minutos, segundos = divmod(full_segundos, 60)
-                self.tempor_pomodoro_funcao.config(text =f'{minutos:02d}:{segundos:02d}')
+                self.tempor_pomodoro_funcao.config(text =f'{minutos:02d}:{segundos:02d}') ####
                 self.root.update()
                 time.sleep(1)
                 full_segundos -= 1
@@ -88,7 +91,7 @@ class Pomodoro:
             full_segundos = 60 * 5
             while full_segundos > 0 and not self.parado:
                 minutos, segundos = divmod(full_segundos, 60)
-                self.pausa_curta_funcao.config(text =f'{minutos:02d}:{segundos:02d}')
+                self.pausa_curta_funcao.config(text =f'{minutos:02d}:{segundos:02d}') #####
                 self.root.update()
                 time.sleep(1)
                 full_segundos -= 1
@@ -99,7 +102,7 @@ class Pomodoro:
             full_segundos = 60 * 15
             while full_segundos > 0 and not self.parado:
                 minutos, segundos = divmod(full_segundos, 60)
-                self.pausa_longa_funcao.config(text =f'{minutos:02d}:{segundos:02d}')
+                self.pausa_longa_funcao.config(text =f'{minutos:02d}:{segundos:02d}') #####
                 self.root.update()
                 time.sleep(1)
                 full_segundos -= 1
@@ -119,9 +122,17 @@ class Pomodoro:
         self.tempor_pomodoro_funcao.config(text = '25:00')
         self.pausa_curta_funcao.config(text = '05:00')
         self.pausa_longa_funcao.config(text = '15:00')
-        #self.contador_pomodoro.config(text = 'Pomodoros: 0')
+        self.contador_pomodoro.config(text = 'Pomodoros: 0')
+        self.executando = False
 
     def pula_relogio(self):
-        pass
+        aba_atual = self.tabs.index(self.tabs.select())
+        if aba_atual == 0:
+            self.tempor_pomodoro_funcao.config(text = '25:00')
+        elif aba_atual == 1:
+            self.pausa_curta_funcao.config(text = '05:00')
+        elif aba_atual == 2:
+            self.pausa_longa_funcao.config(text = '15:00')
+
 
 Pomodoro()
