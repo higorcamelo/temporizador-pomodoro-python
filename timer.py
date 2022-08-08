@@ -23,14 +23,14 @@ class Pomodoro:
         self.tab2 = ttk.Frame(self.tabs, width = 600, height = 100)
         self.tab3 = ttk.Frame(self.tabs, width = 600, height = 100)
 
-        self.tempor_pomodoro_funcao = ttk.Label(self.tab1, text = '25:00', font = ('Ubuntu', 48))
-        self.tempor_pomodoro_funcao.pack(pady = 20)
+        self.tempor_pomodoro_contagem = ttk.Label(self.tab1, text = '25:00', font = ('Ubuntu', 48))
+        self.tempor_pomodoro_contagem.pack(pady = 20)
 
-        self.pausa_curta_funcao = ttk.Label(self.tab2, text = '05:00', font = ('Ubuntu', 48))
-        self.pausa_curta_funcao.pack(pady = 20)
+        self.pausa_curta_contagem = ttk.Label(self.tab2, text = '05:00', font = ('Ubuntu', 48))
+        self.pausa_curta_contagem.pack(pady = 20)
 
-        self.pausa_longa_funcao = ttk.Label(self.tab3, text = '15:00', font = ('Ubuntu', 48))
-        self.pausa_longa_funcao.pack(pady = 20)
+        self.pausa_longa_contagem = ttk.Label(self.tab3, text = '15:00', font = ('Ubuntu', 48))
+        self.pausa_longa_contagem.pack(pady = 20)
 
         self.tabs.add(self.tab1, text = 'Pomodoro')
         self.tabs.add(self.tab2, text = 'Pausa curta')
@@ -57,7 +57,6 @@ class Pomodoro:
         self.parado = False
         self.executando = False
 
-
         self.root.mainloop()
 
     def inicia_temporizador_thread(self):
@@ -75,13 +74,13 @@ class Pomodoro:
             full_segundos = 60 * 25            
             while full_segundos > 0 and not self.parado:
                 minutos, segundos = divmod(full_segundos, 60)
-                self.tempor_pomodoro_funcao.config(text =f'{minutos:02d}:{segundos:02d}') ####
+                self.tempor_pomodoro_contagem.config(text = f'{minutos:02d}:{segundos:02d}') ####
                 self.root.update()
                 time.sleep(1)
                 full_segundos -= 1
             if not self.parado or self.pulado:
                 self.pomodoros += 1
-                self.contador_pomodoro.config(text=f'Pomodoros: {self.pomodoros}')
+                self.contador_pomodoro.config(text=f'Pomodoros: {self.pomodoros}') #####
                 if self.pomodoros % 4 == 0:
                     self.tabs.select(2)
                 else:
@@ -91,7 +90,7 @@ class Pomodoro:
             full_segundos = 60 * 5
             while full_segundos > 0 and not self.parado:
                 minutos, segundos = divmod(full_segundos, 60)
-                self.pausa_curta_funcao.config(text =f'{minutos:02d}:{segundos:02d}') #####
+                self.pausa_curta_contagem.config(text =f'{minutos:02d}:{segundos:02d}') #####
                 self.root.update()
                 time.sleep(1)
                 full_segundos -= 1
@@ -102,7 +101,7 @@ class Pomodoro:
             full_segundos = 60 * 15
             while full_segundos > 0 and not self.parado:
                 minutos, segundos = divmod(full_segundos, 60)
-                self.pausa_longa_funcao.config(text =f'{minutos:02d}:{segundos:02d}') #####
+                self.pausa_longa_contagem.config(text =f'{minutos:02d}:{segundos:02d}') #####
                 self.root.update()
                 time.sleep(1)
                 full_segundos -= 1
